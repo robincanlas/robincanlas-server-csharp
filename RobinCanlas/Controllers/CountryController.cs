@@ -16,14 +16,9 @@ namespace RobinCanlas.Controllers
         }
 
         [HttpGet("{country}")]
-        //[HttpGet]
         public async Task<IActionResult> GetCountries(string country)
-        //public async Task<IActionResult> GetCountries()
         {
-            //Debug.WriteLine("hellowww");
-            //return Ok("Hello World");
             var result = await _positionStackService.GetCountries(country);
-
             return Ok(result);
         }
     }

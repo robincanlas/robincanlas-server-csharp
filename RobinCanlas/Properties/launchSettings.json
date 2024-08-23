@@ -25,15 +25,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "SWAGGER_ENABLE": "1",
-        "MONGODB_CONNECTION": "mongodb+srv:/robincanlas:adminrobincanlas*@portfolio-42zme.mongodb.net/portfolio?retryWrites=true&w=majority",
-        "FLICKER_API": "https:/api.flickr.com/services/rest/?method=flickr.people.getPhotos&api_key=1bebc2dcb88a22bf64c2e90eb20dd3e5&user_id=43569478%40N04&format=json&nojsoncallback=1&extras=url_o&per_page=500",
-        "CLOUDINARY_API": "https:/971359571224628:MWi4eMdx367Zjmf5ouD3zkUkr50@api.cloudinary.com/v1_1/speedforce/resources/image/upload/?prefix=projects",
-        "POSITION_STACK_API": "https:/api.positionstack.com/v1,POSITION_STACK_API_ACCESS_KEY=c31a02917fd4ee880dbb0f51d6faa1d2",
-        "MASTER_PASSWORD": "0ef617d3-2b4c-4d11-93d2-16ba3d859075",
-        "USGS_API": "https:/earthquake.usgs.gov",
-        "DISEASE_SH_API": "https:/disease.sh/v3/covid-19,REDIS=redis:/localhost:6379"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Container (Dockerfile)": {
