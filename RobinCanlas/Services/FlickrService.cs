@@ -3,13 +3,10 @@ using System.Text.Json;
 
 namespace RobinCanlas.Services
 {
-    public class FlickrService: IFlickrService
+    public class FlickrService(IConfiguration configuration) : IFlickrService
     {
-        private readonly string? host;
+        private readonly string? host = configuration.GetValue<string>("FLICKER_API");
         private static readonly HttpClient client = new();
-        public FlickrService(IConfiguration configuration) {
-            host = configuration.GetValue<string>("FLICKER_API");
-        }
 
         public async Task<List<GetAllFlickrApi>> GetPhotos()
         {
