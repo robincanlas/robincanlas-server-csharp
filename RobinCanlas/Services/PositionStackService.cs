@@ -28,7 +28,7 @@ namespace RobinCanlas.Services
                     PropertyNameCaseInsensitive = true
                 };
                 PositionStackCountryData deserializedObject = JsonSerializer.Deserialize<PositionStackCountryData>(json, options);
-                return deserializedObject.Data;
+                return deserializedObject!.Data;
             }
             catch (Exception ex)
             {

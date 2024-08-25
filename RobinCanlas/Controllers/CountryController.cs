@@ -6,14 +6,9 @@ namespace RobinCanlas.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CountryController : Controller
+    public class CountryController(IPositionStackService positionStackService) : Controller
     {
-        private readonly IPositionStackService _positionStackService;
-
-        public CountryController(IPositionStackService positionStackService)
-        {
-            _positionStackService = positionStackService;
-        }
+        private readonly IPositionStackService _positionStackService = positionStackService;
 
         [HttpGet("{country}")]
         public async Task<IActionResult> GetCountries(string country)
