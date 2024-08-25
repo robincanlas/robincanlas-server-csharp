@@ -6,17 +6,11 @@ using System.Text.Json;
 
 namespace RobinCanlas.Services
 {
-    public class PositionStackService : IPositionStackService
+    public class PositionStackService(IConfiguration configuration) : IPositionStackService
     {
-        private readonly string? host;
-        private readonly string? access_key;
+        private readonly string? host = configuration.GetValue<string>("POSITION_STACK_API");
+        private readonly string? access_key = configuration.GetValue<string>("POSITION_STACK_API_ACCESS_KEY");
         private static readonly HttpClient client = new();
-
-        public PositionStackService(IConfiguration configuration)
-        {
-            host = configuration.GetValue<string>("POSITION_STACK_API");
-            access_key = configuration.GetValue<string>("POSITION_STACK_API_ACCESS_KEY");
-        }
 
         public async Task<List<PositionStackCountry>> GetCountries(string country)
         {
