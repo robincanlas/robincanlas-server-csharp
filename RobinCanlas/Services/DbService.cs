@@ -4,13 +4,9 @@ using System.Data;
 
 namespace RobinCanlas.Services
 {
-    public class DbService : IDbService
+    public class DbService(IConfiguration configuration) : IDbService
     {
-        private readonly IDbConnection _db;
-        public DbService(IConfiguration configuration) 
-        {
-            _db = new NpgsqlConnection(configuration.GetConnectionString("Employeedb"));
-        }
+        private readonly IDbConnection _db = new NpgsqlConnection(configuration.GetValue<string>("POSTGRESQL_CONNECTION_STRING"));
 
         public async Task<T> GetAsync<T>(string command, object parms)
         {
@@ -31,6 +27,15 @@ namespace RobinCanlas.Services
         }
 
         public async Task<int> EditData(string command, object parms)
+        {
+            int result;
+
+            result = await _db.ExecuteAsync(command, parms);
+
+            return result;
+        }
+
+        public async Task<int> Delete(string command, object parms)
         {
             int result;
 

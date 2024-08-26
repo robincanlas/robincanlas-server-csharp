@@ -5,22 +5,21 @@ namespace RobinCanlas.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PhotoController(IFlickrService flickrService, ICloudinaryService cloudinaryService) : Controller
+    public class PhotoController(IPhotoService photoService) : Controller
     {
-        private readonly IFlickrService _flickrService = flickrService;
-        private readonly ICloudinaryService _cloudinaryService = cloudinaryService;
+        private readonly IPhotoService _photoService = photoService;
 
         [HttpGet("flickr")]
         public async Task<IActionResult> GetFlickrPhotos()
         {
-            var photos = await _flickrService.GetPhotos();
+            var photos = await _photoService.GetFlickrPhotos();
             return Ok(photos);
         }
 
         [HttpGet("cloudinary")]
         public async Task<IActionResult> GetCloudinaryPhotos()
         {
-            var photos = await _cloudinaryService.GetPhotos();
+            var photos = await _photoService.GetCloudinaryPhotos();
             return Ok(photos);
         }
     }
