@@ -6,6 +6,7 @@ namespace RobinCanlas.Services
     {
         Task<List<GetAllFlickrApi>> GetFlickrPhotos();
         Task<List<GetAllCloudinaryApi>> GetCloudinaryPhotos();
-
+        Task<int> DeleteAllPhotos();
+        Task<int> InsertFlickrPhotos();
     }
 }

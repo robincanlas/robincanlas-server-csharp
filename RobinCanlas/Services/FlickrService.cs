@@ -27,5 +27,23 @@ namespace RobinCanlas.Services
                 return new List<GetAllFlickrApi>();
             }
         }
+        public List<GetAllFlickr> ConstructFlickrPhotos(List<GetAllFlickrApi> photos)
+        {
+            List<GetAllFlickr> newPhotos = [];
+            for (int i = 0; i < photos.Count; i++)
+            {
+                newPhotos.Add(new GetAllFlickr
+                {
+                    Id = i,
+                    Index = i,
+                    Thumbnail = $"https://farm{photos[i].Farm}.staticflickr.com/{photos[i].Server}/{photos[i].Id}_{photos[i].Secret}_z.jpg",
+                    Url = $"https://farm{photos[i].Farm}.staticflickr.com/{photos[i].Server}/{photos[i].Id}_{photos[i].Secret}_b.jpg",
+                    Src = $"https://farm{photos[i].Farm}.staticflickr.com/{photos[i].Server}/{photos[i].Id}_{photos[i].Secret}_b.jpg",
+                    Raw = $"https://farm{photos[i].Farm}.staticflickr.com/{photos[i].Server}/{photos[i].Id}_{photos[i].Secret}",
+                    Original = photos[i].Url_o
+                });
+            }
+            return newPhotos;
+        }
     }
 }

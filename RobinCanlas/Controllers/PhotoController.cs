@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using RobinCanlas.Models;
 using RobinCanlas.Services;
 
 namespace RobinCanlas.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PhotoController(IPhotoService photoService) : Controller
+    public class PhotoController(IPhotoService photoService, IConfiguration configuration) : Controller
     {
         private readonly IPhotoService _photoService = photoService;
 
@@ -21,6 +23,26 @@ namespace RobinCanlas.Controllers
         {
             var photos = await _photoService.GetCloudinaryPhotos();
             return Ok(photos);
+        }
+
+        [HttpPut("syncFlickrAndPostgresDB")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> SyncFlickrAndPostgresDB([FromBody] Validation validation)
+        {
+            if (validation.MasterPassword != configuration.GetValue<string>("MASTER_PASSWORD"))
+            {
+                return Unauthorized();
+            }
+            await _photoService.DeleteAllPhotos();
+            int rowsAffected = await _photoService.InsertFlickrPhotos();
+            if (rowsAffected == 0)
+            {
+                return BadRequest();
+            }
+            return Ok();
         }
     }
 }

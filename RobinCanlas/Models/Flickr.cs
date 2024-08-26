@@ -13,6 +13,7 @@
 
     public class GetAllFlickrApi
     {
+
         public string Id { get; set; }
         public string Owner { get; set; }
         public string Secret { get; set; }
