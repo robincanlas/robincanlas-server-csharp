@@ -35,11 +35,11 @@ namespace RobinCanlas.Services
             return result;
         }
 
-        public async Task<int> Delete(string command, object parms)
+        public async Task<int> ExecuteStoredProcedure(string command, object parms)
         {
             int result;
 
-            result = await _db.ExecuteAsync(command, parms);
+            result = await _db.ExecuteAsync(command, parms, commandType: CommandType.StoredProcedure);
 
             return result;
         }

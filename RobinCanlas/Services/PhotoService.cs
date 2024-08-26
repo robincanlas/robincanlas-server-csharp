@@ -1,4 +1,5 @@
 ﻿using CloudinaryDotNet;
+using Dapper;
 using Newtonsoft.Json.Linq;
 using RobinCanlas.Models;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace RobinCanlas.Services
 
         public async Task<int> DeleteAllPhotos()
         {
-            var rowsAffected = await _dbService.Delete("TRUNCATE photo RESTART IDENTITY", new { });
+            var rowsAffected = await _dbService.EditData("TRUNCATE photo RESTART IDENTITY", new { });
             return rowsAffected;
         }
         public async Task<int> InsertFlickrPhotos()
@@ -41,10 +42,23 @@ namespace RobinCanlas.Services
 
             foreach (var photo in photos)
             {
-                rowsAffected += await _dbService.EditData(
-                    "INSERT INTO photo (index, thumbnail, url, src, raw, original) VALUES (@index, @thumbnail, @url, @src, @raw, @original)", 
-                    new { index = photo.Index, thumbnail = photo.Thumbnail, url = photo.Url, @src = photo.Src, @raw = photo.Raw, @original = photo.Original }
+                DynamicParameters parameters = new();
+                parameters.Add("p_index", photo.Index);
+                parameters.Add("p_thumbnail", photo.Thumbnail);
+                parameters.Add("p_url", photo.Url);
+                parameters.Add("p_src", photo.Src);
+                parameters.Add("p_raw", photo.Raw);
+                parameters.Add("p_original", photo.Original);
+
+                rowsAffected += await _dbService.ExecuteStoredProcedure(
+                    "insertphoto",
+                    parameters
                 );
+
+                //rowsAffected += await _dbService.EditData(
+                //    "INSERT INTO photo (index, thumbnail, url, src, raw, original) VALUES (@index, @thumbnail, @url, @src, @raw, @original)",
+                //    new { index = photo.Index, thumbnail = photo.Thumbnail, url = photo.Url, src = photo.Src, raw = photo.Raw, original = photo.Original }
+                //);
             }
 
             return rowsAffected;
