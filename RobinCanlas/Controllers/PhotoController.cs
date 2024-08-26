@@ -11,6 +11,13 @@ namespace RobinCanlas.Controllers
     {
         private readonly IPhotoService _photoService = photoService;
 
+        [HttpGet]
+        public async Task<IActionResult> GetPhotos()
+        {
+            var photos = await _photoService.GetPhotos();
+            return Ok(photos);
+        }
+
         [HttpGet("flickr")]
         public async Task<IActionResult> GetFlickrPhotos()
         {

@@ -11,6 +11,12 @@ namespace RobinCanlas.Services
         private readonly ICloudinaryService _cloudinaryService = cloudinaryService;
         private readonly IDbService _dbService = dbService;
 
+        public async Task<List<GetAllFlickr>> GetPhotos()
+        {
+            var photos = await _dbService.GetAll<GetAllFlickr>("SELECT * FROM photo", new { });
+            return photos;
+        }
+
         public async Task<List<GetAllFlickrApi>> GetFlickrPhotos()
         {
             var photos = await _flickrService.GetPhotos();
