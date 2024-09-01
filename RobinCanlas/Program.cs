@@ -11,6 +11,7 @@ builder.Services.AddScoped<IPositionStackService, PositionStackService>();
 builder.Services.AddScoped<IFlickrService, FlickrService>();
 builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.AddScoped<IUsgsService, UsgsService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

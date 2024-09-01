@@ -6,6 +6,7 @@ namespace RobinCanlas.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Tags("Country Service")]
     public class CountryController(IPositionStackService positionStackService) : Controller
     {
         private readonly IPositionStackService _positionStackService = positionStackService;

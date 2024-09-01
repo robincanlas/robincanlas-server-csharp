@@ -7,6 +7,7 @@ namespace RobinCanlas.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Tags("Photo Service")]
     public class PhotoController(IPhotoService photoService, IConfiguration configuration) : Controller
     {
         private readonly IPhotoService _photoService = photoService;
